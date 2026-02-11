@@ -3,10 +3,13 @@ name: "Terraform Plan & Destroy"
 on:
   workflow_dispatch:
     inputs:
-      confirmation:
+      confirmation: 
         description: 'Escribe "destruir" para confirmar la eliminación de la infraestructura'
         required: true
         default: 'no'
+  push:
+    branches:
+      - feature/infra-setup
 
 permissions:
   id-token: write
@@ -50,6 +53,5 @@ jobs:
         run: terraform show destroy.tfplan
 
       - name: "Terraform Destroy"
-        # Doble validación por seguridad
         if: github.event.inputs.confirmation == 'destruir'
         run: terraform apply -auto-approve destroy.tfplan
