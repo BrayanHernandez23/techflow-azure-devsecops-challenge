@@ -5,7 +5,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    # El secreto inyectado por Terraform desde Key Vault
     secret_val = os.getenv('MY_SECRET', 'No se encontró el secreto')
     return jsonify({
         "message": "Hola Mundo desde TechFlow!",

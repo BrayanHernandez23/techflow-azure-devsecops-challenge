@@ -47,10 +47,10 @@ jobs:
             -backend-config="key=${{ secrets.TF_STATE_KEY }}"
 
       - name: "Terraform Plan Destroy"
-        run: terraform plan -destroy -var-file="develop.tfvars" -out=destroy.tfplan
+        run: terraform plan -destroy -lock=false -var-file="develop.tfvars" -out=destroy.tfplan
 
       - name: "Show Destroy Plan Details"
         run: terraform show destroy.tfplan
 
       - name: "Terraform Destroy"
-        run: terraform apply -auto-approve destroy.tfplan
+        run: terraform apply -lock=false -auto-approve destroy.tfplan

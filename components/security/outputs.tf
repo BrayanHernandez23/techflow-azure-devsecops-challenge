@@ -14,7 +14,7 @@ output "secret_id" {
 
 output "identity_principal_id" {
 
-  description = "The Principal ID of the Managed Identity, required for Role Assignments (RBAC)."
+  description = "The Principal ID of the Managed Identity, required for Role Assignments."
   value       = azurerm_user_assigned_identity.app_identity.principal_id
 
 }
