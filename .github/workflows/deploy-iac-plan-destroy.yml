@@ -1,0 +1,56 @@
+name: "Terraform Plan & Destroy"
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation: 
+        description: 'Escribe "destruir" para confirmar la eliminación de la infraestructura'
+        required: true
+        default: 'no'
+  push:
+    branches:
+      - feature/infra-setup
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform-destroy:
+    name: "Destroy Plan & Execute"
+    if: github.event.name == 'workflow_dispatch' && github.event.inputs.confirmation == 'destruir'
+    runs-on: ubuntu-latest
+    environment: develop
+    
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_ACCESS_KEY: ${{ secrets.TF_STATE_ACCESS_KEY }}
+
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v4
+
+      - name: "Setup Terraform"
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.10.0"
+
+      - name: "Terraform Init"
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=${{ secrets.TF_STATE_RG }}" \
+            -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE_ACCOUNT }}" \
+            -backend-config="container_name=${{ secrets.TF_STATE_CONTAINER }}" \
+            -backend-config="key=${{ secrets.TF_STATE_KEY }}"
+
+      - name: "Terraform Plan Destroy"
+        run: terraform plan -destroy -var-file="develop.tfvars" -out=destroy.tfplan
+
+      - name: "Show Destroy Plan Details"
+        run: terraform show destroy.tfplan
+
+      - name: "Terraform Destroy"
+        run: terraform apply -auto-approve destroy.tfplan
