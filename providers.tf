@@ -17,8 +17,9 @@ terraform {
 }
 
 provider "azurerm" {
-  use_msi = false
-  use_cli = false
+  use_msi                    = false
+  use_cli                    = false
+  skip_provider_registration = false
   features {
     key_vault {
       purge_soft_delete_on_destroy    = true
