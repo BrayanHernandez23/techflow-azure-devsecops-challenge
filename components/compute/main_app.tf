@@ -25,6 +25,8 @@ resource "azurerm_container_app" "api" {
       name    = "init-db-migration"
       image   = "alpine:latest"
       command = ["/bin/sh", "-c", "echo 'Iniciando migración simulada...'; sleep 5; echo 'Listo.'"]
+      cpu     = 0.25
+      memory  = "0.5Gi"
     }
 
     container {
