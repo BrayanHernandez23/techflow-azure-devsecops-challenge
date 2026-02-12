@@ -13,13 +13,13 @@ resource "azurerm_role_assignment" "kv_secrets_user" {
 }
 
 resource "azurerm_key_vault" "kv" {
-  name                       = "kv-${var.project_name}-${var.suffix}"
-  location                   = var.location
-  resource_group_name        = var.resource_group_name
-  tenant_id                  = data.azurerm_client_config.current.tenant_id
-  sku_name                   = "standard"
-  soft_delete_retention_days = 7
-  purge_protection_enabled   = true
+  name                          = "kv-${var.project_name}-${var.suffix}"
+  location                      = var.location
+  resource_group_name           = var.resource_group_name
+  tenant_id                     = data.azurerm_client_config.current.tenant_id
+  sku_name                      = "standard"
+  soft_delete_retention_days    = 7
+  purge_protection_enabled      = true
   public_network_access_enabled = true
   # checkov:skip=CKV_AZURE_189: Firewall set to 'Allow' mode to ensure seamless access from the CI/CD pipeline.
   # checkov:skip=CKV_AZURE_109: Network simplification for the technical evaluation environment.
