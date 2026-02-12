@@ -1,8 +1,3 @@
-import {
-  to = azurerm_container_app.api
-  id = "/subscriptions/8e57b1cd-2a2b-4d54-8bc9-f3f06949179c/resourceGroups/rg-techflow-develop/providers/Microsoft.App/containerApps/ca-techflow-api"
-}
-
 resource "azurerm_container_app" "api" {
   name                         = "ca-${var.project_name}-api"
   container_app_environment_id = azurerm_container_app_environment.env.id
