@@ -5,7 +5,7 @@ output "identity_id" {
 
 output "secret_id" {
   description = "The Versionless ID of the Key Vault secret. Using the versionless ID ensures the application always retrieves the latest enabled version of the secret."
-  value       = azurerm_key_vault_secret.app_secret.id
+  value       = azurerm_key_vault_secret.app_secret.versionless_id
 }
 
 output "identity_principal_id" {
