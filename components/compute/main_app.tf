@@ -51,4 +51,8 @@ resource "azurerm_container_app" "api" {
       latest_revision = true
     }
   }
+
+  depends_on = [
+    var.key_vault_secret_id
+  ]
 }
