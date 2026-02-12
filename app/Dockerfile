@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.13-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
 RUN adduser --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
-COPY . .
+COPY --chown=appuser:appuser . .
 
 EXPOSE 8000
 

@@ -14,9 +14,9 @@ resource "azurerm_key_vault" "kv" {
   sku_name                   = "standard"
   soft_delete_retention_days = 7
   purge_protection_enabled   = true
-  # checkov:skip=CKV_AZURE_189: Firewall configurado en modo Allow para acceso desde el pipeline.
-  # checkov:skip=CKV_AZURE_109: Simplificación de red para entorno de evaluación.
-  # checkov:skip=CKV2_AZURE_32: Private Endpoint no implementado para reducir complejidad de red.
+  # checkov:skip=CKV_AZURE_189: Firewall set to 'Allow' mode to ensure seamless access from the CI/CD pipeline.
+  # checkov:skip=CKV_AZURE_109: Network simplification for the technical evaluation environment.
+  # checkov:skip=CKV2_AZURE_32: Private Endpoint not implemented to reduce networking complexity for this challenge.
 
   network_acls {
     bypass         = "AzureServices"

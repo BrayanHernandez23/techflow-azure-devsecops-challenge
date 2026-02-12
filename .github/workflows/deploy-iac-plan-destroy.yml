@@ -4,14 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       confirmation: 
-        description: 'Escribe "destruir" para confirmar la eliminación de la infraestructura'
+        description: 'Type "destroy" to confirm the removal of the infrastructure'
         required: true
-        default: 'no'
-  push:
-    branches:
-      - feature/infra-setup
-      - develop
-      - main
+        default: 'not'
 
 permissions:
   id-token: write
@@ -24,7 +19,7 @@ concurrency:
 jobs:
   terraform-destroy:
     name: "Destroy Plan & Execute"
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.confirmation == 'destruir' }}
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.confirmation == 'destroy' }}
     runs-on: ubuntu-latest
     environment: develop
     
@@ -37,12 +32,12 @@ jobs:
 
     steps:
       - name: "Checkout Code"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.10.0"
+          terraform_version: "1.11.0"
 
       - name: "Terraform Init"
         run: |

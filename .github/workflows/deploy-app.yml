@@ -4,14 +4,16 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Entorno a desplegar'
+        description: 'Environment to be deployed'
         required: true
         default: 'develop'
-  push:
+  pull_request:
     branches:
-      - feature/infra-setup
       - develop
       - main
+    paths:
+      - 'app/**'
+      - '.github/workflows/deploy-app.yml'
 
 permissions:
   id-token: write
@@ -25,18 +27,18 @@ jobs:
   build-and-scan:
     name: "Build, Scan & Push"
     runs-on: ubuntu-latest
-    environment: develop
+    environment: ${{ github.event_name == 'pull_request' && 'develop' || github.event.inputs.environment }}
     
     steps:
       - name: "Checkout Code"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: "Build Local Image"
         run: |
           docker build -t techflow-api:${{ github.sha }} ./app
 
       - name: "Run Trivy Vulnerability Scanner"
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@v0.33.1
         with:
           image-ref: 'techflow-api:${{ github.sha }}'
           format: 'table'
