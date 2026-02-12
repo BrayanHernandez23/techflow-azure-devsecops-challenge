@@ -9,7 +9,8 @@ def hello():
     return jsonify({
         "message": "Hola Mundo desde TechFlow!",
         "secret_value": secret_val,
-        "status": "success"
+        "status": "success",
+        "infra_status": "Managed Identity Active"
     })
 
 if __name__ == '__main__':
