@@ -79,3 +79,14 @@ jobs:
             --name "${{ secrets.CONTAINER_APP_NAME }}" \
             --resource-group "${{ secrets.RESOURCE_GROUP }}" \
             --image ${{ secrets.ACR_LOGIN_SERVER }}/techflow-api:latest
+
+      - name: "Display Application URL"
+        run: |
+          APP_URL=$(az containerapp show \
+            --name "${{ secrets.CONTAINER_APP_NAME }}" \
+            --resource-group "${{ secrets.RESOURCE_GROUP }}" \
+            --query "properties.configuration.ingress.fqdn" -o tsv)
+          
+          echo "## 🚀 Ingresa a este link para visualizar tu aplicacion" >> $GITHUB_STEP_SUMMARY
+          echo "Tu aplicación está lista en: [https://$APP_URL](https://$APP_URL)" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Deploy completado con éxito." >> $GITHUB_STEP_SUMMARY
