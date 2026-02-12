@@ -87,7 +87,7 @@ jobs:
             --resource-group "${{ secrets.RESOURCE_GROUP }}" \
             --query "properties.configuration.ingress.fqdn" -o tsv)
           
-          echo "## 🚀 Ingresa a este link para visualizar tu aplicacion" >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 Ingresa a este link para visualizar tu aplicación" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Tu aplicación está lista en: https://$APP_FQDN" >> $GITHUB_STEP_SUMMARY      
           echo "" >> $GITHUB_STEP_SUMMARY
