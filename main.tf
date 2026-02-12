@@ -12,7 +12,7 @@ module "compute" {
   user_assigned_identity_id = module.security.identity_id
   key_vault_secret_id       = module.security.secret_id
   acr_login_server          = module.registry.login_server
-  depends_on = [module.security]
+  depends_on                = [module.security]
 }
 
 module "registry" {
