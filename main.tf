@@ -1,5 +1,6 @@
 import {
-  to = azurerm_container_app.api
+  # Apuntamos a la dirección del recurso dentro del módulo compute
+  to = module.compute.azurerm_container_app.api
   id = "/subscriptions/8e57b1cd-2a2b-4d54-8bc9-f3f06949179c/resourceGroups/rg-techflow-develop/providers/Microsoft.App/containerApps/ca-techflow-api"
 }
 
