@@ -75,25 +75,22 @@ jobs:
 
       - name: "Update Container App Revision"
         run: |
+          # Cambiamos secrets por vars aquí
           az containerapp update \
-            --name "${{ secrets.CONTAINER_APP_NAME }}" \
+            --name "${{ vars.CONTAINER_APP_NAME }}" \
             --resource-group "${{ secrets.RESOURCE_GROUP }}" \
             --image ${{ secrets.ACR_LOGIN_SERVER }}/techflow-api:latest
 
       - name: "Display Application URL"
         run: |
+          # También cambiamos secrets por vars aquí
           APP_FQDN=$(az containerapp show \
-            --name "${{ secrets.CONTAINER_APP_NAME }}" \
+            --name "${{ vars.CONTAINER_APP_NAME }}" \
             --resource-group "${{ secrets.RESOURCE_GROUP }}" \
             --query "properties.configuration.ingress.fqdn" -o tsv)
           
-          APP_NAME=$(echo $APP_FQDN | cut -d'.' -f1)
-          APP_DOMAIN=$(echo $APP_FQDN | cut -d'.' -f2-)
-          
           echo "## 🚀 Ingresa a este link para visualizar tu aplicacion" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Tu aplicación está lista en: [https://$APP_FQDN](https://$APP_FQDN)" >> $GITHUB_STEP_SUMMARY      
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "> **Tip:** Si ves asteriscos, el link superior debería funcionar igual. GitHub oculta nombres que coinciden con Secrets." >> $GITHUB_STEP_SUMMARY
+          echo "Tu aplicación está lista en: https://$APP_FQDN" >> $GITHUB_STEP_SUMMARY      
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ Deploy completado con éxito." >> $GITHUB_STEP_SUMMARY
