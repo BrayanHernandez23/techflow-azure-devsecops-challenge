@@ -3,7 +3,6 @@ name: "Terraform Plan & Apply"
 on:
   push:
     branches:
-      - feature/infra-setup
       - develop
       - main
 
