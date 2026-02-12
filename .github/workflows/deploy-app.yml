@@ -75,7 +75,6 @@ jobs:
 
       - name: "Update Container App Revision"
         run: |
-          # Cambiamos secrets por vars aquí
           az containerapp update \
             --name "${{ vars.CONTAINER_APP_NAME }}" \
             --resource-group "${{ secrets.RESOURCE_GROUP }}" \
@@ -83,7 +82,6 @@ jobs:
 
       - name: "Display Application URL"
         run: |
-          # También cambiamos secrets por vars aquí
           APP_FQDN=$(az containerapp show \
             --name "${{ vars.CONTAINER_APP_NAME }}" \
             --resource-group "${{ secrets.RESOURCE_GROUP }}" \
