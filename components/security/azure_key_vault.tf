@@ -43,3 +43,12 @@ resource "azurerm_key_vault_secret" "app_secret" {
   content_type    = "text/plain"
   expiration_date = "2026-12-31T23:59:59Z"
 }
+
+resource "time_sleep" "wait_90_seconds" {
+  depends_on = [
+    azurerm_key_vault.kv,
+    azurerm_user_assigned_identity.app_identity,
+    azurerm_key_vault_secret.app_secret
+  ]
+  create_duration = "90s"
+}
