@@ -15,7 +15,7 @@ resource "azurerm_container_app" "api" {
   }
 
   secret {
-    name                = "my-secret"
+    name                = "my-secret-val"
     key_vault_secret_id = var.key_vault_secret_id
     identity            = var.user_assigned_identity_id
   }
@@ -37,7 +37,7 @@ resource "azurerm_container_app" "api" {
 
       env {
         name        = "MY_SECRET"
-        secret_name = "my-secret"
+        secret_name = "my-secret-val"
       }
     }
   }
@@ -51,8 +51,4 @@ resource "azurerm_container_app" "api" {
       latest_revision = true
     }
   }
-
-  depends_on = [
-    azurerm_container_app_environment.env
-  ]
 }
