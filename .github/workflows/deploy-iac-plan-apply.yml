@@ -27,6 +27,16 @@ jobs:
       - name: "Checkout Code"
         uses: actions/checkout@v4
 
+      - name: "Run Checkov IaC Scan"
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          framework: terraform
+          soft_fail: true 
+          output_format: cli
+          quiet: true
+
       - name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v3
         with:
