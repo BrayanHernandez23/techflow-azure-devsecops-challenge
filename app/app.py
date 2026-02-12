@@ -1,0 +1,17 @@
+import os
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    secret_val = os.getenv('MY_SECRET', 'No se encontró el secreto')
+    return jsonify({
+        "message": "Hola Mundo desde TechFlow!",
+        "secret_value": secret_val,
+        "status": "success",
+        "infra_status": "Managed Identity Active"
+    })
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000)
