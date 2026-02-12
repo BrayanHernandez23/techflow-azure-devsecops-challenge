@@ -10,6 +10,7 @@ on:
   push:
     branches:
       - feature/infra-setup
+      - develop
 
 permissions:
   id-token: write
