@@ -38,7 +38,7 @@ jobs:
           docker build -t techflow-api:${{ github.sha }} ./app
 
       - name: "Run Trivy Vulnerability Scanner"
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: 'techflow-api:${{ github.sha }}'
           format: 'table'
