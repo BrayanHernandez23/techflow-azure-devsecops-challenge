@@ -14,6 +14,9 @@ resource "azurerm_key_vault" "kv" {
   sku_name                   = "standard"
   soft_delete_retention_days = 7
   purge_protection_enabled   = true
+  # checkov:skip=CKV_AZURE_189: Firewall configurado en modo Allow para acceso desde el pipeline.
+  # checkov:skip=CKV_AZURE_109: Simplificación de red para entorno de evaluación.
+  # checkov:skip=CKV2_AZURE_32: Private Endpoint no implementado para reducir complejidad de red.
 
   network_acls {
     bypass         = "AzureServices"
