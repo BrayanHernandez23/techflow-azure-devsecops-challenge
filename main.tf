@@ -1,8 +1,7 @@
-import {
-  # Apuntamos a la dirección del recurso dentro del módulo compute
-  to = module.compute.azurerm_container_app.api
-  id = "/subscriptions/8e57b1cd-2a2b-4d54-8bc9-f3f06949179c/resourceGroups/rg-techflow-develop/providers/Microsoft.App/containerApps/ca-techflow-api"
-}
+#import {
+#  to = module.compute.azurerm_container_app.api
+#  id = "/subscriptions/8e57b1cd-2a2b-4d54-8bc9-f3f06949179c/resourceGroups/rg-techflow-develop/providers/Microsoft.App/containerApps/ca-techflow-api"
+#}
 
 resource "azurerm_resource_group" "main" {
   name     = "rg-${var.project_name}-${var.environment}"
