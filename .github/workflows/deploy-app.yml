@@ -11,6 +11,7 @@ on:
     branches:
       - feature/infra-setup
       - develop
+      - main
 
 permissions:
   id-token: write
