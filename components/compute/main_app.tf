@@ -53,6 +53,6 @@ resource "azurerm_container_app" "api" {
   }
 
   depends_on = [
-    var.key_vault_secret_id
+    azurerm_container_app_environment.env
   ]
 }
