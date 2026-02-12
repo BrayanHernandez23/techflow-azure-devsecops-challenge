@@ -63,5 +63,4 @@ jobs:
         run: terraform plan -lock=false -var-file="develop.tfvars" -out=tfplan -input=false
 
       - name: "Terraform Apply"
-        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/feature/infra-setup'
         run: terraform apply -lock=false -auto-approve tfplan
