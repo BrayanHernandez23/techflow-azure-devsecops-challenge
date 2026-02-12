@@ -13,7 +13,12 @@ resource "azurerm_key_vault" "kv" {
   tenant_id                  = data.azurerm_client_config.current.tenant_id
   sku_name                   = "standard"
   soft_delete_retention_days = 7
-  purge_protection_enabled   = false
+  purge_protection_enabled   = true
+
+  network_acls {
+    bypass         = "AzureServices"
+    default_action = "Allow"
+  }
 
   access_policy {
     tenant_id          = data.azurerm_client_config.current.tenant_id
@@ -29,7 +34,9 @@ resource "azurerm_key_vault" "kv" {
 }
 
 resource "azurerm_key_vault_secret" "app_secret" {
-  name         = "MY-SECRET"
-  value        = "TechFlow-IA-Powered-Secret"
-  key_vault_id = azurerm_key_vault.kv.id
+  name            = "MY-SECRET"
+  value           = "TechFlow-IA-Powered-Secret"
+  key_vault_id    = azurerm_key_vault.kv.id
+  content_type    = "text/plain"
+  expiration_date = "2026-12-31T23:59:59Z"
 }
